@@ -1,0 +1,254 @@
+{
+	"info": {
+		"_postman_id": "a042f2b3-44fc-4ef1-a8ad-5fbe00a3d72e",
+		"name": "api-ya",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "25716701",
+		"_collection_link": "https://www.postman.com/gooder08/workspace/new-workspace/collection/25716701-a042f2b3-44fc-4ef1-a8ad-5fbe00a3d72e?action=share&source=collection_link&creator=25716701"
+	},
+	"item": [
+		{
+			"name": "GET",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response contains copied file name\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.name).to.equal(\"papka\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{access_token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://cloud-api.yandex.net/v1/disk/resources?path=/papka",
+					"protocol": "https",
+					"host": [
+						"cloud-api",
+						"yandex",
+						"net"
+					],
+					"path": [
+						"v1",
+						"disk",
+						"resources"
+					],
+					"query": [
+						{
+							"key": "path",
+							"value": "/papka"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response contains copied file name\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.href).to.include(\"Moscow.jpg\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{access_token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://cloud-api.yandex.net/v1/disk/resources/copy?from=/Moscow.jpg&path=/papka/Moscow.jpg&overwrite=true",
+					"protocol": "https",
+					"host": [
+						"cloud-api",
+						"yandex",
+						"net"
+					],
+					"path": [
+						"v1",
+						"disk",
+						"resources",
+						"copy"
+					],
+					"query": [
+						{
+							"key": "from",
+							"value": "/Moscow.jpg"
+						},
+						{
+							"key": "path",
+							"value": "/papka/Moscow.jpg"
+						},
+						{
+							"key": "overwrite",
+							"value": "true"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 204\", function () {\r",
+							"    pm.response.to.have.status(204);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"File is deleted\", function () {\r",
+							"    pm.expect(pm.response.text()).to.equal(\"\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{access_token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://cloud-api.yandex.net/v1/disk/resources?path=/papka/Moscow.jpg",
+					"protocol": "https",
+					"host": [
+						"cloud-api",
+						"yandex",
+						"net"
+					],
+					"path": [
+						"v1",
+						"disk",
+						"resources"
+					],
+					"query": [
+						{
+							"key": "path",
+							"value": "/papka/Moscow.jpg"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PUT",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response contains folder name\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.href).to.include(\"newfolder\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{access_token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://cloud-api.yandex.net/v1/disk/resources?path=/newfolder",
+					"protocol": "https",
+					"host": [
+						"cloud-api",
+						"yandex",
+						"net"
+					],
+					"path": [
+						"v1",
+						"disk",
+						"resources"
+					],
+					"query": [
+						{
+							"key": "path",
+							"value": "/newfolder"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"pm.test(\"Status code is 200\", function () {",
+					"    pm.response.to.have.status(200);",
+					"});",
+					"",
+					"pm.test(\"Response contains folder name\", function () {",
+					"    var jsonData = pm.response.json();",
+					"    pm.expect(jsonData.name).to.equal(\"papka\");",
+					"});"
+				]
+			}
+		}
+	]
+}
